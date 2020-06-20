@@ -1,5 +1,6 @@
 package listeningrain.cn.controller;
 
+import listeningrain.cn.exception.AdminBaseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,5 +23,10 @@ public class IndexController {
     @PostMapping(path = "/testPost")
     public String testPost(){
         return "hello world post 请求";
+    }
+
+    @GetMapping(path = "/testException")
+    public String haha() throws Exception{
+        throw new AdminBaseException("测试","测试错误");
     }
 }
