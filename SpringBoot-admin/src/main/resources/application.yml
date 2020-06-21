@@ -1,3 +1,9 @@
 server:
   port:
     8090
+
+dubbo:
+  application:
+    name: springboot-admin # dubbo 应用名称
+  registry: # zookeeper 注册中心地址
+    address: zookeeper://127.0.01:2181

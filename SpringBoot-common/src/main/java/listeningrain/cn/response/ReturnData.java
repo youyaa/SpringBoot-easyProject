@@ -1,4 +1,4 @@
-package listeningrain.cn.domain;
+package listeningrain.cn.response;
 
 import listeningrain.cn.enums.ErrorCode;
 import lombok.Data;
@@ -6,13 +6,13 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class ResponseWrapper<T> implements Serializable {
+public class ReturnData<T> implements Serializable {
     private String transactionUuid;
     private String code;
     private String msg;
     private T data;
 
-    public ResponseWrapper() {
+    public ReturnData() {
         this.code = ErrorCode.SUCCESS.getCode();
         this.msg = ErrorCode.SUCCESS.getMsg();
     }

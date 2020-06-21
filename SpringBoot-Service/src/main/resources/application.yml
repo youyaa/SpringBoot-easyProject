@@ -1,0 +1,16 @@
+server:
+  port:
+    9090
+
+dubbo:
+  application:
+    name: springboot-service # dubbo应用名称
+  scan:
+    base-packages: listeningrain.cn.facadeImpl # 扫描指定包，将使用@Service注解修饰的类发布为服务
+  protocol:
+    port: 20880 # dubbo协议端口，默认20880
+    name: dubbo # dubbo协议名称
+  registry:
+    address: zookeeper://127.0.0.1:2181 # zookeeper注册中心地址
+  config-center:
+    timeout: 10000 # 连接注册中心的超时时间：单位是毫秒

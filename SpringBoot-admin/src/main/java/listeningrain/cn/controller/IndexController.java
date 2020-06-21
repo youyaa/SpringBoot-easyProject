@@ -1,10 +1,10 @@
 package listeningrain.cn.controller;
 
 import listeningrain.cn.exception.AdminBaseException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import listeningrain.cn.facadeImpl.IndexFacade;
+import listeningrain.cn.response.ReturnData;
+import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Author: listeningrain
@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/index")
 public class IndexController {
+
+    @Reference
+    private IndexFacade indexFacade;
 
     @GetMapping(path = "/testGet")
     public String testGet(){
@@ -28,5 +31,11 @@ public class IndexController {
     @GetMapping(path = "/testException")
     public String haha() throws Exception{
         throw new AdminBaseException("测试","测试错误");
+    }
+
+    @GetMapping(path = "/testDubbo")
+    public ReturnData testDubbo(@RequestParam String name) throws Exception{
+        ReturnData returnData = indexFacade.sayHello(name);
+        return returnData;
     }
 }

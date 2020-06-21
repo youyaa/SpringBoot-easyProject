@@ -1,8 +1,8 @@
 package listeningrain.cn.aspect;
-import listeningrain.cn.domain.ResponseWrapper;
 import listeningrain.cn.enums.ErrorCode;
 import listeningrain.cn.exception.AdminBaseException;
 
+import listeningrain.cn.response.ReturnData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,7 +25,7 @@ public class WebExceptionHandler {
 	 */
 	@ExceptionHandler(Throwable.class)
 	@ResponseBody
-	protected ResponseWrapper<Object> handleControllerException(Throwable ex) {
+	protected ReturnData<Object> handleControllerException(Throwable ex) {
 		return handleExceptionInternal(ex);
 	}
 
@@ -33,11 +33,11 @@ public class WebExceptionHandler {
 	 * @param exception 抛出的异常
 	 * @return 将异常转化为最终可以响应给REST客户端的JSON结果。
 	 */
-	private ResponseWrapper<Object> handleExceptionInternal(Throwable exception) {
+	private ReturnData<Object> handleExceptionInternal(Throwable exception) {
 		/**
 		 * 通过拦截的异常信息转换成的输出对象
 		 */
-		ResponseWrapper<Object> outputDTO = new ResponseWrapper<>();
+		ReturnData<Object> outputDTO = new ReturnData<>();
         logger.debug("捕获到的异常, 转为JSON", exception);
 
 		if (exception instanceof AdminBaseException) {
