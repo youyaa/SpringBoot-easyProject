@@ -2,6 +2,7 @@ package listeningrain.cn.facadeImpl;
 
 
 import com.alibaba.fastjson.JSONObject;
+import listeningrain.cn.facade.IndexFacade;
 import listeningrain.cn.request.StudentInputData;
 import listeningrain.cn.response.ReturnData;
 import listeningrain.cn.response.StudentOutputData;
@@ -13,7 +14,7 @@ import org.apache.dubbo.config.annotation.Service;
  * Description:
  */
 @Service
-public class IndexFacadeImpl implements IndexFacade{
+public class IndexFacadeImpl implements IndexFacade {
 
     @Override
     public ReturnData sayHello(String name) throws Exception{

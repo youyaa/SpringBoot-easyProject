@@ -1,7 +1,7 @@
 package listeningrain.cn.controller;
 
 import listeningrain.cn.exception.AdminBaseException;
-import listeningrain.cn.facadeImpl.IndexFacade;
+import listeningrain.cn.facade.IndexFacade;
 import listeningrain.cn.request.StudentInputData;
 import listeningrain.cn.response.ReturnData;
 import org.apache.dubbo.config.annotation.Reference;

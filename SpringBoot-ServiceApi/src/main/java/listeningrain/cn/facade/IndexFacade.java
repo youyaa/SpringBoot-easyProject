@@ -1,4 +1,4 @@
-package listeningrain.cn.facadeImpl;
+package listeningrain.cn.facade;
 
 import listeningrain.cn.request.StudentInputData;
 import listeningrain.cn.response.ReturnData;
