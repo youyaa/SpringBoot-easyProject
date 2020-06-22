@@ -1,7 +1,7 @@
 package listeningrain.cn.aspect;
+
 import listeningrain.cn.enums.ErrorCode;
 import listeningrain.cn.exception.AdminBaseException;
-
 import listeningrain.cn.response.ReturnData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,7 +38,7 @@ public class WebExceptionHandler {
 		 * 通过拦截的异常信息转换成的输出对象
 		 */
 		ReturnData<Object> outputDTO = new ReturnData<>();
-        logger.debug("捕获到的异常, 转为JSON", exception);
+        logger.info("捕获到异常", exception);
 
 		if (exception instanceof AdminBaseException) {
 			//自定义的异常;
@@ -47,9 +47,9 @@ public class WebExceptionHandler {
 					adminBaseException.getMsg());
 			outputDTO.setCode(adminBaseException.getCode());
 			outputDTO.setMsg(adminBaseException.getMsg());
-		} else {
+		}else {
 			//其余异常全部转成系统异常
-			logger.error("REST层捕获到未知异常，异常信息: {}", exception);
+			logger.error("REST层捕获到未知异常，异常信息: ", exception);
 			outputDTO.setCode(ErrorCode.SYSTEM_ERROR.getCode());
 			outputDTO.setMsg(ErrorCode.SYSTEM_ERROR.getMsg());
 		}

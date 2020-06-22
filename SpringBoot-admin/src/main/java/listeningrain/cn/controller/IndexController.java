@@ -2,9 +2,12 @@ package listeningrain.cn.controller;
 
 import listeningrain.cn.exception.AdminBaseException;
 import listeningrain.cn.facadeImpl.IndexFacade;
+import listeningrain.cn.request.StudentInputData;
 import listeningrain.cn.response.ReturnData;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * Author: listeningrain
@@ -37,5 +40,10 @@ public class IndexController {
     public ReturnData testDubbo(@RequestParam String name) throws Exception{
         ReturnData returnData = indexFacade.sayHello(name);
         return returnData;
+    }
+
+    @PostMapping(path = "/testDubboPost")
+    public ReturnData testDubboPost(@RequestBody @Valid StudentInputData studentInputData){
+        return indexFacade.sayHello(studentInputData);
     }
 }

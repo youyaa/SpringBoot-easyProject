@@ -1,5 +1,6 @@
 package listeningrain.cn.facadeImpl;
 
+import listeningrain.cn.request.StudentInputData;
 import listeningrain.cn.response.ReturnData;
 
 /**
@@ -9,4 +10,5 @@ import listeningrain.cn.response.ReturnData;
  */
 public interface IndexFacade {
     ReturnData sayHello(String name) throws Exception;
+    ReturnData sayHello(StudentInputData student);
 }

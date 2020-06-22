@@ -1,6 +1,7 @@
 package listeningrain.cn.aspect;
 
 import com.alibaba.fastjson.JSONObject;
+import listeningrain.cn.enums.ErrorCode;
 import listeningrain.cn.exception.ServiceBaseException;
 import listeningrain.cn.response.ReturnData;
 import org.apache.logging.log4j.LogManager;
@@ -21,11 +22,9 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class FacadeServiceAspect {
     private static final Logger logger = LogManager.getLogger(FacadeServiceAspect.class);
+
     /**
      * 拦截所有的facade service服务
-     *
-     * 功能描述： void
-     *
      */
     @Pointcut(value = "execution(* listeningrain.cn.facadeImpl..*(..))")
     public void pointCut() {
@@ -34,55 +33,43 @@ public class FacadeServiceAspect {
 
     /**
      * 环绕整个被调用的Facade方法，并处理所有未被Facade层内部处理的异常。
-     *
-     * @param joinPoint
-     * @return
-     * @author toney
      */
     @Around("pointCut()")
     public Object aroundFacadeMethod(ProceedingJoinPoint joinPoint) {
         final long startTimeMs = System.currentTimeMillis();
         String facadeClzShortName = joinPoint.getTarget().getClass().getSimpleName();
         String facadeMethodName = joinPoint.getSignature().getName();
-
-
         Object outputObject = null;
+
+        logger.info("DUBBO Start: {}.{}", facadeClzShortName, facadeMethodName);
+        Object[] parameters = joinPoint.getArgs();
+        logger.info("DUBBO Input: {}", parameters[0]);
+
         try {
-            logger.info("DUBBO Start: {}.{}", facadeClzShortName, facadeMethodName);
-
-            Object[] parameters = joinPoint.getArgs();
-
-            if (logger.isDebugEnabled()) {
-                logger.debug("DUBBO Input: {}", parameters[0]);
-            }
-        } catch (Throwable e) {
-            logger.error("facade aspect error ", e);
-        }
-
-        try{
             outputObject = joinPoint.proceed();
         } catch (Throwable ex) {
             logger.error("facade aspect error ", ex);
             ReturnData wrapper = new ReturnData();
             if (ex instanceof ServiceBaseException) {
-                ServiceBaseException serviceBaseException = (ServiceBaseException)ex;
+                ServiceBaseException serviceBaseException = (ServiceBaseException) ex;
+                logger.error("facade层捕获到异常，转成json返回，错误码: {}, 错误信息: {}", serviceBaseException.getCode(),
+                        serviceBaseException.getMsg());
                 wrapper.setCode(serviceBaseException.getCode());
                 wrapper.setMsg(serviceBaseException.getMsg());
-            } else{
-                wrapper.setCode("00000000");
-                wrapper.setMsg("服务层异常");
+            } else {
+                logger.error("facade层捕获到未知异常，转成json返回，异常信息{}", ex);
+                wrapper.setCode(ErrorCode.SERVICE_ERROR.getCode());
+                wrapper.setMsg(ErrorCode.SERVICE_ERROR.getMsg());
             }
             return wrapper;
-        }finally {
+        } finally {
             // 释放线程上的数据或标记位
             try {
                 this.release(joinPoint, facadeClzShortName, facadeMethodName, startTimeMs, outputObject);
             } catch (Exception e) {
-                logger.warn("Exception occurred when invoke release() in facade finally block, msg: {}", e.getMessage(),
-                        e);
+                logger.error("Exception occurred when invoke release() in facade finally block, msg: {}", e.getMessage(), e);
             }
         }
-
         return outputObject;
     }
 

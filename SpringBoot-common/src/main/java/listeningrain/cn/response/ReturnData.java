@@ -16,4 +16,10 @@ public class ReturnData<T> implements Serializable {
         this.code = ErrorCode.SUCCESS.getCode();
         this.msg = ErrorCode.SUCCESS.getMsg();
     }
+
+    public ReturnData(T data) {
+        this.code = ErrorCode.SUCCESS.getCode();
+        this.msg = ErrorCode.SUCCESS.getMsg();
+        this.data = data;
+    }
 }
