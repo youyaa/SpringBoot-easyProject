@@ -2,7 +2,9 @@ package listeningrain.cn.controller;
 
 import listeningrain.cn.exception.AdminBaseException;
 import listeningrain.cn.facade.IndexFacade;
+import listeningrain.cn.facade.UserServiceFacade;
 import listeningrain.cn.request.StudentInputData;
+import listeningrain.cn.request.UserInputData;
 import listeningrain.cn.response.ReturnData;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,8 @@ public class IndexController {
 
     @Reference
     private IndexFacade indexFacade;
+    @Reference
+    private UserServiceFacade userServiceFacade;
 
     @GetMapping(path = "/testGet")
     public String testGet(){
@@ -45,5 +49,10 @@ public class IndexController {
     @PostMapping(path = "/testDubboPost")
     public ReturnData testDubboPost(@RequestBody @Valid StudentInputData studentInputData){
         return indexFacade.sayHello(studentInputData);
+    }
+
+    @PostMapping(path = "/queryAllUser")
+    public ReturnData queryAll(@RequestBody @Valid UserInputData userInputData){
+        return userServiceFacade.query(userInputData);
     }
 }

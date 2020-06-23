@@ -23,6 +23,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User queryById(Integer id) {
-        return userMapper.selectById(1L);
+        return userMapper.selectById(id);
     }
 }

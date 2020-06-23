@@ -5,6 +5,7 @@ import listeningrain.cn.exception.AdminBaseException;
 import listeningrain.cn.response.ReturnData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,7 +48,13 @@ public class WebExceptionHandler {
 					adminBaseException.getMsg());
 			outputDTO.setCode(adminBaseException.getCode());
 			outputDTO.setMsg(adminBaseException.getMsg());
-		}else {
+		}else if(exception instanceof HttpRequestMethodNotSupportedException){
+			//请求方式错误
+			logger.error("REST层捕获到请求方式异常，异常信息: ", exception);
+			outputDTO.setCode(ErrorCode.REQUEST_ERROR.getCode());
+			outputDTO.setMsg(ErrorCode.REQUEST_ERROR.getMsg()+
+					((HttpRequestMethodNotSupportedException)exception).getMethod());
+		} else {
 			//其余异常全部转成系统异常
 			logger.error("REST层捕获到未知异常，异常信息: ", exception);
 			outputDTO.setCode(ErrorCode.SYSTEM_ERROR.getCode());

@@ -43,7 +43,8 @@ public class FacadeServiceAspect {
 
         logger.info("DUBBO Start: {}.{}", facadeClzShortName, facadeMethodName);
         Object[] parameters = joinPoint.getArgs();
-        logger.info("DUBBO Input: {}", parameters[0]);
+        if(parameters.length > 0)
+            logger.info("DUBBO Input: {}", parameters[0]);
 
         try {
             outputObject = joinPoint.proceed();
