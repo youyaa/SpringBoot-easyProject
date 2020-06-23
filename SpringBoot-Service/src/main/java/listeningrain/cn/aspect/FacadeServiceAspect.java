@@ -14,8 +14,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 
 /**
  * Author: listeningrain
@@ -44,7 +42,7 @@ public class FacadeServiceAspect {
         /**
          * 从dubbo上下文中取出全局唯一请求id
          */
-        String traceId = RpcContext.getContext().getAttachment("traceId");
+        String traceId = RpcContext.getContext().getAttachment("logId");
         if(null != traceId)
             ThreadContext.put("logId", traceId);
         String facadeClzShortName = joinPoint.getTarget().getClass().getSimpleName();

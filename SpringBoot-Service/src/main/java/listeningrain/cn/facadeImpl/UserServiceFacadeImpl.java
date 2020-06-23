@@ -1,5 +1,7 @@
 package listeningrain.cn.facadeImpl;
 
+import listeningrain.cn.enums.ErrorCode;
+import listeningrain.cn.exception.ServiceBaseException;
 import listeningrain.cn.facade.UserServiceFacade;
 import listeningrain.cn.model.User;
 import listeningrain.cn.request.UserInputData;
@@ -19,6 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserServiceFacadeImpl implements UserServiceFacade {
     @Autowired
     private UserService userService;
+
+    @Override
+    public ReturnData sayHello(String name) throws Exception{
+        System.out.println("hello world: "+name);
+        throw new ServiceBaseException(ErrorCode.TEST_DUBBO_EXCEPTION);
+    }
 
     @Override
     public ReturnData<UserOutputData> query(UserInputData userInputData) {

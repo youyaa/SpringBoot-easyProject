@@ -1,9 +1,6 @@
 package listeningrain.cn.response;
 
-import listeningrain.cn.request.BaseInputData;
 import lombok.Data;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * Author: listeningrain

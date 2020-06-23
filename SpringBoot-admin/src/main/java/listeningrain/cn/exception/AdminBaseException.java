@@ -1,5 +1,6 @@
 package listeningrain.cn.exception;
 
+import listeningrain.cn.enums.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,4 +14,9 @@ import lombok.Data;
 public class AdminBaseException extends Exception{
     private String code;
     private String msg;
+
+    public AdminBaseException(ErrorCode errorCode) {
+        this.code = errorCode.getCode();
+        this.msg = errorCode.getMsg();
+    }
 }

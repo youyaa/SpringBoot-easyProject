@@ -3,6 +3,7 @@ package listeningrain.cn.service.impl;
 import listeningrain.cn.facade.UserServiceFacade;
 import listeningrain.cn.request.UserInputData;
 import listeningrain.cn.response.ReturnData;
+import listeningrain.cn.response.UserOutputData;
 import listeningrain.cn.service.UserService;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public ReturnData<UserOutputData> query(UserInputData userInputData) {
         return userServiceFacade.query(userInputData);
+    }
+
+    public ReturnData testDubboException() throws Exception{
+        return userServiceFacade.sayHello("listeningrain");
     }
 }

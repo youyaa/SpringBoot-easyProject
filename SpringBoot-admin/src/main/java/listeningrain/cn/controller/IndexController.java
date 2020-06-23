@@ -2,7 +2,6 @@ package listeningrain.cn.controller;
 
 import listeningrain.cn.request.UserInputData;
 import listeningrain.cn.response.ReturnData;
-import listeningrain.cn.service.IndexService;
 import listeningrain.cn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +18,10 @@ import javax.validation.Valid;
 public class IndexController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private IndexService indexService;
 
     @GetMapping(path = "/testException")
     public ReturnData testDubboException() throws Exception{
-        return indexService.testDubboException();
+        return userService.testDubboException();
     }
 
     @PostMapping(path = "/queryAllUser")

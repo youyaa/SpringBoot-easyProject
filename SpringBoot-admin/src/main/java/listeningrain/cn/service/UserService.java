@@ -2,6 +2,7 @@ package listeningrain.cn.service;
 
 import listeningrain.cn.request.UserInputData;
 import listeningrain.cn.response.ReturnData;
+import listeningrain.cn.response.UserOutputData;
 
 /**
  * Author: listeningrain
@@ -10,4 +11,5 @@ import listeningrain.cn.response.ReturnData;
  */
 public interface UserService {
     ReturnData<UserOutputData> query(UserInputData userInputData);
+    ReturnData testDubboException() throws Exception;
 }

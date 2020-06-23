@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2015-2025 by HRT All rights reserved
- */
+
 package listeningrain.cn.convert;
 
 import java.lang.reflect.Method;

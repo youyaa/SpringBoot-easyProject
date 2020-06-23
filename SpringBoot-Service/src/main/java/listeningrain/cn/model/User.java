@@ -11,11 +11,11 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
-@Data //set/get/toString
-@Accessors(chain = true) //链式加载
-@NoArgsConstructor //无参构造
-@AllArgsConstructor //有参构造
-@TableName("user") //对象与数据表完成映射
+@Data
+@Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@TableName("user")
 public class User implements Serializable {
     @TableId(type = IdType.AUTO) //主键自动
     private Integer id;

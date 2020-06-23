@@ -33,7 +33,7 @@ public class WebInterceptor extends HandlerInterceptorAdapter {
          */
         String logId = UUID.randomUUID().toString();
         ThreadContext.put("logId", logId);
-        RpcContext.getContext().setAttachment("traceId",logId);
+        RpcContext.getContext().setAttachment("logId",logId);
         // 用于区分mvc:resources, 正常的Controller请求
         if (handler == null || !HandlerMethod.class.isAssignableFrom(handler.getClass())) {
             return true;

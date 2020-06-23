@@ -29,6 +29,3 @@ spring:
 #mybatis-plush配置
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
-
-#mybatis:
-  #mapper-locations: classpath:mapper/*.xml
