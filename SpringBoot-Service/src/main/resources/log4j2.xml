@@ -3,11 +3,13 @@
 
         <Appenders>
             <Console name="Console" target="SYSTEM_OUT">
-                <PatternLayout pattern="%d{ABSOLUTE} %5p %c{1}:%L - %m%n" />
+                <PatternLayout pattern="[%X{logId}] %d{yyyy/MM/dd HH:mm:ss} [%p] %c{1} (%F:%L) %msg%n" />
+                <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY" />
             </Console>
 
-            <File name="LogFile" filename="e:/mylog.log">
-                <PatternLayout pattern="%d{ABSOLUTE} %5p %c{1}:%L - %m%n" />
+            <File name="LogFile" filename="logs/mylog.log">
+                <PatternLayout pattern="[%X{logId}] %d{yyyy/MM/dd HH:mm:ss} [%p] %c{1} (%F:%L) %msg%n" />
+                <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY" />
             </File>
 
         </Appenders>

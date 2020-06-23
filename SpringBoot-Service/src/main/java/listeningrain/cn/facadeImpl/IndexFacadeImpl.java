@@ -2,6 +2,7 @@ package listeningrain.cn.facadeImpl;
 
 
 import com.alibaba.fastjson.JSONObject;
+import listeningrain.cn.exception.ServiceBaseException;
 import listeningrain.cn.facade.IndexFacade;
 import listeningrain.cn.request.StudentInputData;
 import listeningrain.cn.response.ReturnData;
@@ -19,8 +20,8 @@ public class IndexFacadeImpl implements IndexFacade {
     @Override
     public ReturnData sayHello(String name) throws Exception{
         System.out.println("hello world: "+name);
-        //throw new ServiceBaseException("E000000067", "测试dubbo层异常处理");
-        return new ReturnData<String>("hello world");
+        throw new ServiceBaseException("E000000067", "测试dubbo层异常处理");
+        //return new ReturnData<String>("hello world");
     }
 
     @Override

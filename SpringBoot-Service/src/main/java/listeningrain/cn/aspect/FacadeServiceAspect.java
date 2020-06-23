@@ -4,13 +4,17 @@ import com.alibaba.fastjson.JSONObject;
 import listeningrain.cn.enums.ErrorCode;
 import listeningrain.cn.exception.ServiceBaseException;
 import listeningrain.cn.response.ReturnData;
+import org.apache.dubbo.rpc.RpcContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.ThreadContext;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 
 /**
@@ -37,6 +41,12 @@ public class FacadeServiceAspect {
     @Around("pointCut()")
     public Object aroundFacadeMethod(ProceedingJoinPoint joinPoint) {
         final long startTimeMs = System.currentTimeMillis();
+        /**
+         * 从dubbo上下文中取出全局唯一请求id
+         */
+        String traceId = RpcContext.getContext().getAttachment("traceId");
+        if(null != traceId)
+            ThreadContext.put("logId", traceId);
         String facadeClzShortName = joinPoint.getTarget().getClass().getSimpleName();
         String facadeMethodName = joinPoint.getSignature().getName();
         Object outputObject = null;
