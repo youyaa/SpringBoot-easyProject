@@ -1,12 +1,10 @@
 package listeningrain.cn.controller;
 
-import listeningrain.cn.exception.AdminBaseException;
-import listeningrain.cn.facade.IndexFacade;
-import listeningrain.cn.facade.UserServiceFacade;
-import listeningrain.cn.request.StudentInputData;
 import listeningrain.cn.request.UserInputData;
 import listeningrain.cn.response.ReturnData;
-import org.apache.dubbo.config.annotation.Reference;
+import listeningrain.cn.service.IndexService;
+import listeningrain.cn.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,40 +17,18 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/index")
 public class IndexController {
-
-    @Reference
-    private IndexFacade indexFacade;
-    @Reference
-    private UserServiceFacade userServiceFacade;
-
-    @GetMapping(path = "/testGet")
-    public String testGet(){
-        return "hello world";
-    }
-
-    @PostMapping(path = "/testPost")
-    public String testPost(){
-        return "hello world post 请求";
-    }
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private IndexService indexService;
 
     @GetMapping(path = "/testException")
-    public String haha() throws Exception{
-        throw new AdminBaseException("测试","测试错误");
-    }
-
-    @GetMapping(path = "/testDubbo")
-    public ReturnData testDubbo(@RequestParam String name) throws Exception{
-        ReturnData returnData = indexFacade.sayHello(name);
-        return returnData;
-    }
-
-    @PostMapping(path = "/testDubboPost")
-    public ReturnData testDubboPost(@RequestBody @Valid StudentInputData studentInputData){
-        return indexFacade.sayHello(studentInputData);
+    public ReturnData testDubboException() throws Exception{
+        return indexService.testDubboException();
     }
 
     @PostMapping(path = "/queryAllUser")
     public ReturnData queryAll(@RequestBody @Valid UserInputData userInputData){
-        return userServiceFacade.query(userInputData);
+        return userService.query(userInputData);
     }
 }
