@@ -12,4 +12,5 @@ import listeningrain.cn.response.UserOutputData;
 public interface UserServiceFacade {
     ReturnData<UserOutputData> query(UserInputData userInputData);
     ReturnData sayHello(String name) throws Exception;
+    ReturnData sendMessage(String message);
 }

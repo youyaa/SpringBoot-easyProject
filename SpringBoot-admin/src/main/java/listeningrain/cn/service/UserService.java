@@ -12,4 +12,5 @@ import listeningrain.cn.response.UserOutputData;
 public interface UserService {
     ReturnData<UserOutputData> query(UserInputData userInputData);
     ReturnData testDubboException() throws Exception;
+    ReturnData sendMessage(String message);
 }

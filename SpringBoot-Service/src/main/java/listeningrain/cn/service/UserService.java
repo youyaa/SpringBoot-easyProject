@@ -11,4 +11,5 @@ import listeningrain.cn.model.User;
 public interface UserService {
     User queryAll();
     User queryById(Integer id);
+    void sendMessage(String message);
 }

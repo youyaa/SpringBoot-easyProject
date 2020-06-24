@@ -26,4 +26,9 @@ public class UserServiceImpl implements UserService {
     public ReturnData testDubboException() throws Exception{
         return userServiceFacade.sayHello("listeningrain");
     }
+
+    @Override
+    public ReturnData sendMessage(String message) {
+        return userServiceFacade.sendMessage(message);
+    }
 }

@@ -28,4 +28,9 @@ public class IndexController {
     public ReturnData queryAll(@RequestBody @Valid UserInputData userInputData){
         return userService.query(userInputData);
     }
+
+    @GetMapping(path = "/sendMessage")
+    public ReturnData sendMessage(@RequestParam String message){
+        return userService.sendMessage(message);
+    }
 }

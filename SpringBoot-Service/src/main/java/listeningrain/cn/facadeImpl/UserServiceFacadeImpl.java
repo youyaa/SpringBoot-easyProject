@@ -39,4 +39,10 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
         }
         return returnData;
     }
+
+    @Override
+    public ReturnData sendMessage(String message) {
+        userService.sendMessage(message);
+        return new ReturnData();
+    }
 }
