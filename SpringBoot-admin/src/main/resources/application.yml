@@ -3,7 +3,9 @@ server:
     8090
 
 dubbo:
-  application:
-    name: springboot-admin # dubbo 应用名称
-  registry: # zookeeper 注册中心地址
+  application:                #dubbo应用名称
+    name: springboot-admin
+  consumer:                   #启动时不检查提供者是否已经注册
+    check: false
+  registry:                   #zookeeper 注册中心地址
     address: zookeeper://127.0.01:2181

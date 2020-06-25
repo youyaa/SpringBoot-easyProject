@@ -28,6 +28,7 @@ public class WebInterceptor extends HandlerInterceptorAdapter {
             throws Exception {
 
         long startTimeMs = System.currentTimeMillis();
+        threadLocal.set(startTimeMs);
         /**
          * 生成全局唯一的请求id，将在整个请求过程中被传递和打印
          */
@@ -43,7 +44,6 @@ public class WebInterceptor extends HandlerInterceptorAdapter {
         CurrentControllerMethod.setCurrentControllerMethod(hm.getMethod());
 
         logger.info("******************************* REST START: {}.{} *******************************", hm.getBeanType().getSimpleName(), hm.getMethod().getName());
-        threadLocal.set(startTimeMs);
         return true;
     }
 

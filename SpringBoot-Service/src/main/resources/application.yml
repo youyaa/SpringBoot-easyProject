@@ -36,11 +36,11 @@ spring:
         max-wait: 100000
       timeout: 5000
   #RabbitMQ配置
-  rabbitmq:
-    host: 47.93.54.203
-    port: 5672
-    username: admin
-    password: admin
+  #rabbitmq:
+    #host: 47.93.54.1
+    #port: 5672
+    #username: admin
+    #password: admin
 
 
 #mybatis-plush配置
