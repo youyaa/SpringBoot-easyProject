@@ -1,16 +1,17 @@
 package listeningrain.cn.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import listeningrain.cn.dao.UserMapper;
 import listeningrain.cn.model.User;
-import listeningrain.cn.service.RabbitMqReceiver;
+import listeningrain.cn.request.UserInputData;
+import listeningrain.cn.response.ReturnData;
 import listeningrain.cn.service.UserService;
-import listeningrain.cn.utils.MqUtils;
-import listeningrain.cn.utils.RedisUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Author: listeningrain
@@ -23,29 +24,18 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private RedisUtils redisUtils;
-    @Autowired
-    private MqUtils mqUtils;
 
     @Override
-    public User queryAll() {
-        redisUtils.set("name","啊啊啊啊风风feng");
-        return userMapper.findAll().get(0);
+    public List<User> queryAll() {
+        return userMapper.findAll();
     }
 
     @Override
-    public User queryById(Integer id) {
-        System.out.println(redisUtils.get("name"));
-        return userMapper.selectById(id);
-    }
-
-    @Override
-    public void sendMessage(String message) {
-        for(int i=0; i<10; i++){
-            String send = JSONObject.toJSONString(message+i);
-            mqUtils.send("test-exchange","",send);
-        }
-        logger.info("发送消息结束");
+    public ReturnData add(UserInputData userInputData) {
+        User user = new User();
+        BeanUtils.copyProperties(userInputData,user);
+        //使用mybatis-plus
+        userMapper.insert(user);
+        return new ReturnData();
     }
 }

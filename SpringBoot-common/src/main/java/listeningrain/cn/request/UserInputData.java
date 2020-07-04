@@ -11,8 +11,9 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 public class UserInputData extends BaseInputData {
-    @NotNull(message = "id不能为空")
+
     private Integer id;
+    @NotNull(message = "name不能为空")
     private String name;
     private Integer age;
     private String sex;

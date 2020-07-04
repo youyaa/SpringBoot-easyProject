@@ -23,5 +23,6 @@ public class User implements Serializable {
     private String name;
     @TableId("age")
     private Integer age;
+    @TableId("sex")
     private String sex;
 }

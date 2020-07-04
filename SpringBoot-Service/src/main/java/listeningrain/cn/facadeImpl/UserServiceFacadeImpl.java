@@ -1,7 +1,5 @@
 package listeningrain.cn.facadeImpl;
 
-import listeningrain.cn.enums.ErrorCode;
-import listeningrain.cn.exception.ServiceBaseException;
 import listeningrain.cn.facade.UserServiceFacade;
 import listeningrain.cn.model.User;
 import listeningrain.cn.request.UserInputData;
@@ -11,6 +9,9 @@ import listeningrain.cn.service.UserService;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: listeningrain
@@ -23,26 +24,19 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
     private UserService userService;
 
     @Override
-    public ReturnData sayHello(String name) throws Exception{
-        System.out.println("hello world: "+name);
-        throw new ServiceBaseException(ErrorCode.TEST_DUBBO_EXCEPTION);
-    }
-
-    @Override
-    public ReturnData<UserOutputData> query(UserInputData userInputData) {
-        ReturnData<UserOutputData> returnData = new ReturnData<>();
-        User user = userService.queryById(userInputData.getId());
-        if(null != user){
+    public ReturnData<List<UserOutputData>> queryAll(){
+        List<User> users = userService.queryAll();
+        List<UserOutputData> result = new ArrayList<>(users.size());
+        for(User user : users){
             UserOutputData userOutputData = new UserOutputData();
             BeanUtils.copyProperties(user,userOutputData);
-            returnData.setData(userOutputData);
+            result.add(userOutputData);
         }
-        return returnData;
+        return new ReturnData<>(result);
     }
 
     @Override
-    public ReturnData sendMessage(String message) {
-        userService.sendMessage(message);
-        return new ReturnData();
+    public ReturnData add(UserInputData userInputData) {
+        return userService.add(userInputData);
     }
 }

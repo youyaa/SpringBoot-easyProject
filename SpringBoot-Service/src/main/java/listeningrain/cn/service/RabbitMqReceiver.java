@@ -11,6 +11,7 @@ import java.util.Date;
 /**
  * RabbitMQ消费者实例
  */
+/*
 @Component
 @RabbitListener(queues = "test-queue", containerFactory="rabbitListenerContainerFactory")
 public class RabbitMqReceiver {
@@ -21,4 +22,4 @@ public class RabbitMqReceiver {
         logger.info("接收消息："+Str);
         logger.info("接收消息时间："+new Date());
     }
-}
+}*/

@@ -19,18 +19,13 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(path = "/testException")
-    public ReturnData testDubboException() throws Exception{
-        return userService.testDubboException();
+    @GetMapping(path = "/queryAll")
+    public ReturnData queryAll() throws Exception{
+        return userService.queryAll();
     }
 
-    @PostMapping(path = "/queryAllUser")
-    public ReturnData queryAll(@RequestBody @Valid UserInputData userInputData){
-        return userService.query(userInputData);
-    }
-
-    @GetMapping(path = "/sendMessage")
-    public ReturnData sendMessage(@RequestParam String message){
-        return userService.sendMessage(message);
+    @PostMapping(path = "addUser")
+    public ReturnData addUser(@RequestBody @Valid UserInputData userInputData){
+        return userService.addUser(userInputData);
     }
 }

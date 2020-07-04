@@ -8,6 +8,8 @@ import listeningrain.cn.service.UserService;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Author: listeningrain
  * Date: 2020/6/23 4:45 下午
@@ -19,16 +21,12 @@ public class UserServiceImpl implements UserService {
     private UserServiceFacade userServiceFacade;
 
     @Override
-    public ReturnData<UserOutputData> query(UserInputData userInputData) {
-        return userServiceFacade.query(userInputData);
-    }
-
-    public ReturnData testDubboException() throws Exception{
-        return userServiceFacade.sayHello("listeningrain");
+    public ReturnData<List<UserOutputData>> queryAll() {
+        return userServiceFacade.queryAll();
     }
 
     @Override
-    public ReturnData sendMessage(String message) {
-        return userServiceFacade.sendMessage(message);
+    public ReturnData addUser(UserInputData userInputData) {
+        return userServiceFacade.add(userInputData);
     }
 }

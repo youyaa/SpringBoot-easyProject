@@ -11,8 +11,5 @@ import java.util.List;
  * Description:
  */
 public interface UserMapper extends BaseMapper<User> {
-
-    //查询全部的user表中的数据
     List<User> findAll();
-
 }

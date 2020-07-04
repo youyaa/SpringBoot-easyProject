@@ -2,6 +2,10 @@ package listeningrain.cn.service;
 
 
 import listeningrain.cn.model.User;
+import listeningrain.cn.request.UserInputData;
+import listeningrain.cn.response.ReturnData;
+
+import java.util.List;
 
 /**
  * Author: listeningrain
@@ -9,7 +13,6 @@ import listeningrain.cn.model.User;
  * Description:
  */
 public interface UserService {
-    User queryAll();
-    User queryById(Integer id);
-    void sendMessage(String message);
+    List<User> queryAll();
+    ReturnData add(UserInputData userInputData);
 }
