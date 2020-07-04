@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,11 +32,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ReturnData add(UserInputData userInputData) {
         User user = new User();
         BeanUtils.copyProperties(userInputData,user);
         //使用mybatis-plus
         userMapper.insert(user);
-        return new ReturnData();
+        //测试事务
+        throw new RuntimeException("测试事务，手动抛出异常");
+        //return new ReturnData();
     }
 }
