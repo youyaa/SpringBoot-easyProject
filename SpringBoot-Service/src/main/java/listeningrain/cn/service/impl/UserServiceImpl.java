@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ReturnData add(UserInputData userInputData) {
+    public void add(UserInputData userInputData) {
         User user = new User();
         BeanUtils.copyProperties(userInputData,user);
         //使用mybatis-plus

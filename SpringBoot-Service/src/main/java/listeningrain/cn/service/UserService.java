@@ -3,7 +3,6 @@ package listeningrain.cn.service;
 
 import listeningrain.cn.model.User;
 import listeningrain.cn.request.UserInputData;
-import listeningrain.cn.response.ReturnData;
 
 import java.util.List;
 
@@ -14,5 +13,5 @@ import java.util.List;
  */
 public interface UserService {
     List<User> queryAll();
-    ReturnData add(UserInputData userInputData);
+    void add(UserInputData userInputData);
 }

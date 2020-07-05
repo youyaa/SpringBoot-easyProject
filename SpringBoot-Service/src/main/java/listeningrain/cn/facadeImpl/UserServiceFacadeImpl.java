@@ -37,6 +37,7 @@ public class UserServiceFacadeImpl implements UserServiceFacade {
 
     @Override
     public ReturnData add(UserInputData userInputData) {
-        return userService.add(userInputData);
+        userService.add(userInputData);
+        return new ReturnData();
     }
 }
